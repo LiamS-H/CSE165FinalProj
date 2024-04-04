@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 23)
 add_executable(CSE165FinalProj main.cpp)
 
 target_link_libraries(CSE165FinalProj
-        ${CMAKE_SOURCE_DIR}/freeglut/lib/x64/freeglut.lib
+        ${CMAKE_SOURCE_DIR}/freeglut/lib/x64/libfreeglut.a
         opengl32
 )
 
