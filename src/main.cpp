@@ -1,5 +1,5 @@
-#include "freeglut/include/GL/freeglut.h"
-#include <stdio.h>
+#include "../freeglut/include/GL/freeglut.h"
+#include <cstdio>
 
 void display() {
     glClear(GL_COLOR_BUFFER_BIT);

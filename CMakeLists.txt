@@ -3,7 +3,7 @@ project(CSE165FinalProj)
 
 set(CMAKE_CXX_STANDARD 23)
 
-add_executable(CSE165FinalProj main.cpp)
+add_executable(CSE165FinalProj src/main.cpp)
 
 target_link_libraries(CSE165FinalProj
         ${CMAKE_SOURCE_DIR}/freeglut/lib/x64/libfreeglut.a
