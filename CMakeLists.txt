@@ -5,10 +5,18 @@ set(CMAKE_CXX_STANDARD 23)
 
 add_executable(CSE165FinalProj src/main.cpp)
 
+add_subdirectory(src/ui)
+
+
+target_link_libraries(CSE165FinalProj ui)
+
+
 target_link_libraries(CSE165FinalProj
         ${CMAKE_SOURCE_DIR}/freeglut/lib/x64/libfreeglut.a
         opengl32
 )
+
+
 
 add_custom_command(TARGET CSE165FinalProj POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
