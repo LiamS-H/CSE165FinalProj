@@ -7,12 +7,15 @@
 
 #include <vector>
 #include <string>
+#include <memory>
+#include "tileset.h"
+
+//const std::vector<char> piece_ids;
+const extern std::vector<char> piece_ids;
 
 class piece {
 protected:
-    void init(int id);
     std::vector<std::vector<int>> * board;
-    [[nodiscard]] bool validate() const;
     std::vector<std::vector<int>> shape;
     unsigned int height;
     unsigned int width;
@@ -20,14 +23,22 @@ protected:
     int y;
 public:
     int tile_id;
-    std::string color;
-    [[nodiscard]] virtual bool rotate();
-    [[nodiscard]] bool move(int new_x, int new_y);
-    unsigned int getHeight() const;
-    unsigned int getWidth() const;
-    int getX() const;
-    int getY() const;
+    virtual bool rotate();
+    bool relative_move(int relative_x, int relative_y);
+    [[nodiscard]] bool validate() const;
+    [[nodiscard]] unsigned int getHeight() const;
+    [[nodiscard]] unsigned int getWidth() const;
+    [[nodiscard]] int getX() const;
+    [[nodiscard]] int getY() const;
+    [[nodiscard]] std::vector<std::vector<int>> board_with_piece() const;
+    virtual ~piece();
+
+    friend std::ostream& operator<<(std::ostream& os, const piece& obj);
 };
 
+class pieceFactory {
+public:
+    static std::unique_ptr<piece> createPiece(char type, std::vector<std::vector<int>> * const board);
+};
 
 #endif //CSE165FINALPROJ_PIECE_H

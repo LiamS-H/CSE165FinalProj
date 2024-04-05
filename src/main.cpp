@@ -1,7 +1,8 @@
 #include "../freeglut/include/GL/freeglut.h"
 #include <cstdio>
+#include "tetris/tetris_game.h"
 
-void display() {
+void test_display() {
     glClear(GL_COLOR_BUFFER_BIT);
     GLenum error = glGetError();
     if (error != GL_NO_ERROR) {
@@ -20,8 +21,11 @@ void display() {
 
 int main(int argc, char** argv) {
     glutInit(&argc, argv);
-    glutCreateWindow("CSE165Proj");
-    glutDisplayFunc(display);
-    glutMainLoop();
+
+    tetris_game Tetris;
+
+    Tetris.play();
+
+
     return 0;
 }
