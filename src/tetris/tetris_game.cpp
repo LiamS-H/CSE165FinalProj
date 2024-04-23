@@ -75,8 +75,8 @@ void tetris_game::draw_tile(int x, int y, int tile_id) const {
     int rendered_x = (int) (this->border_size + (x) * this->tile_size);
     int rendered_y = (int) (this->border_size + (y) * this->tile_size);
     Color color = color_from_id(tile_id);
-    glColor3f(color.r, color.g, color.b);
     glBegin(GL_QUADS);
+    glColor3f(color.r, color.g, color.b);
     glVertex2i(rendered_x, rendered_y);
     glVertex2i(rendered_x + this->tile_size, rendered_y);
     glVertex2i(rendered_x + this->tile_size, rendered_y + this->tile_size);
@@ -96,6 +96,7 @@ void tetris_game::render_frame() const {
             draw_tile(x, y, tile_id);
         }
     }
+    glutSwapBuffers();
     glFlush();
 }
 

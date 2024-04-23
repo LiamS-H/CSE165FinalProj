@@ -17,6 +17,7 @@ void game::display() {
     game::global_window = this;
     glutInitWindowSize(this->w, this->h); // Set window size
     glutInitWindowPosition(100, 100); // Set window position
+    glutInitDisplayMode(GLUT_DOUBLE);
     glutCreateWindow("CSE165Proj");
     glOrtho(0, this->w, 0, this->h, 0, 1);
     glutDisplayFunc(game::global_render_callback);
