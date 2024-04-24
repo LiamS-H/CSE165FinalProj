@@ -42,6 +42,36 @@ bool piece::validate() const {
 
 }
 
+bool piece::validate(int test_x, int test_y) const {
+    unsigned int board_height = this->board->size();
+    unsigned int board_width = this->board[0].size();
+//    if (board_height < this->y + this->height) {
+//        return false;
+//    }
+    if (test_y < 0) {
+        return false;
+    }
+
+    if (board_width < test_x + this->width) {
+        return false;
+    }
+
+    if (test_x < 0) {
+        return false;
+    }
+    for (int shape_y=0; shape_y < this->height; shape_y++) {
+        for (int shape_x=0; shape_x < this->width; shape_x++) {
+            int shape_tile = this->shape[shape_y][shape_x];
+            if (shape_tile == 0) continue;
+            if (test_y+shape_y >= board->size()) continue;
+            int board_tile = (*board)[test_y+shape_y][test_x+shape_x];
+            if (board_tile == 0) continue;
+            return false;
+        }
+    }
+    return true;
+}
+
 bool piece::relative_move(int relative_x, int relative_y) {
     int old_x = this->x;
     int old_y = this->y;
@@ -82,6 +112,26 @@ std::vector<std::vector<int>> piece::board_with_piece() const {
     return result;
 }
 
+std::vector<std::vector<int>> piece::blank_board_with_placed_piece() const {
+    int test_y = this->y;
+    while (validate(this->x, test_y-1)) {
+        test_y--;
+    }
+    std::vector<std::vector<int>> result = std::vector<std::vector<int>>(
+            this->board->size(),
+            std::vector<int>(this->board[0].size(), 0));
+
+    for (int shape_y=0; shape_y < this->height; shape_y++) {
+        for (int shape_x=0; shape_x < this->width; shape_x++) {
+            int shape_tile = this->shape[shape_y][shape_x];
+            if (shape_tile == 0) continue;
+            if (test_y+shape_y >= board->size()) continue;
+            result[test_y+shape_y][this->x+shape_x] = shape_tile;
+        }
+    }
+    return result;
+}
+
 std::ostream &operator<<(std::ostream &os, const piece &obj) {
     os << "(" << obj.x << ", " << obj.y << ")" << std::endl;
     return os;
@@ -113,3 +163,7 @@ bool piece::rotate() {
 
     return true;
 }
+
+
+
+

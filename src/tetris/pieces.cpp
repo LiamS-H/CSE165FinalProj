@@ -139,3 +139,22 @@ std::unique_ptr<piece> pieceFactory::createPiece(char type, std::vector<std::vec
     }
     return nullptr;
 }
+
+std::vector<std::vector<int>> pieceFactory::getShape(char type) {
+    if (type == 'O') {
+        return std::vector<std::vector<int>>({{4,4,0,0},{4,4,0,0},});
+    } else if (type == 'I') {
+        return std::vector<std::vector<int>>({{6,6,6,6},{0,0,0,0},});
+    } else if (type == 'S') {
+        return std::vector<std::vector<int>>({{0,2,2,0},{2,2,0,0},});
+    } else if (type == 'T') {
+        return std::vector<std::vector<int>>({{0,5,0,0},{5,5,5,0},});
+    } else if (type == 'Z') {
+        return std::vector<std::vector<int>>({{1,1,0,0},{0,1,1,0},});
+    } else if (type == 'J') {
+        return std::vector<std::vector<int>>({{3,0,0,0},{3,3,3,0},});
+    } else if (type == 'L') {
+        return std::vector<std::vector<int>>({{0,0,7,0},{7,7,7,0},});
+    }
+    return std::vector<std::vector<int>>({{1}});
+}
