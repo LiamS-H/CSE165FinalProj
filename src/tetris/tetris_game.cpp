@@ -150,6 +150,17 @@ void tetris_game::render_frame() const {
     this->draw_hud();
 
     const auto display_board = this->current_piece->board_with_piece();
+    const auto placed_piece_board = this->current_piece->blank_board_with_placed_piece();
+
+    for (int y=0;y<this->board_height;y++) {
+        for (int x=0;x<this->board_width;x++) {
+            int tile_id = placed_piece_board[y][x];
+            if (tile_id==0) continue;
+            Color color = color_from_id(tile_id);
+            glColor3f(color.r * 0.5, color.g * 0.5, color.b * 0.5);
+            draw_tile(x, y, tile_id);
+        }
+    }
 
     for (int y=0;y<this->board_height;y++) {
         for (int x=0;x<this->board_width;x++) {
@@ -160,16 +171,7 @@ void tetris_game::render_frame() const {
             draw_tile(x, y, tile_id);
         }
     }
-    const auto placed_piece_board = this->current_piece->blank_board_with_placed_piece();
-    for (int y=0;y<this->board_height;y++) {
-        for (int x=0;x<this->board_width;x++) {
-            int tile_id = placed_piece_board[y][x];
-            if (tile_id==0) continue;
-            Color color = color_from_id(tile_id);
-            glColor3f(color.r * 0.5, color.g * 0.5, color.b * 0.5);
-            draw_tile(x, y, tile_id);
-        }
-    }
+
     glutSwapBuffers();
     glFlush();
 }
